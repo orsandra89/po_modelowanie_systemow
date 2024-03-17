@@ -1,6 +1,9 @@
-module Switch
+simple Switch
 {
+    parameters:
+        int serverGates;
+        int clientGates;
     gates:
-        inout portToSerwer[];
-        inout portToClient[];
+        inout portToSerwer[serverGates];
+        inout portToClient[clientGates];
 }

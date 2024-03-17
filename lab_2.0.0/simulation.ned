@@ -6,7 +6,10 @@ network Network
 //        int numPorts = 2* (numClients + numSerwers);
         @display("bgb=514,379");
     submodules:
-        switch: Switch;
+        switch: Switch{
+            serverGates = parent.numSerwers;
+            clientGates = parent.numClients;
+        };
 
         client[numClients]: Client {
             xCoord = uniform(0, 100);
@@ -17,10 +20,11 @@ network Network
             yCoord = uniform(200, 300);
         }
     connections:
-        for i=0..numClients-1 {
-            switch.portToClient++ <--> client[i].clientsGate;
+        for j=0..numClients-1{
+            client[j].clientsGate<--> switch.portToClient[j];
         }
         for i=0..numSerwers-1{
-        	switch.portToSerwer++ <--> serwer[i].serwersGate;
+        	switch.portToSerwer[i] <--> serwer[i].serwersGate;
         }
+
 }
